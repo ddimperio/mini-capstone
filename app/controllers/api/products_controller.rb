@@ -1,6 +1,14 @@
 class Api::ProductsController < ApplicationController
   def index
     @products = Product.all
+
+    # search_terms = params[:search]
+    # if search_terms
+    #   @products = @products.where("name ILIKE ?", "%#{search_terms}%")
+    # end
+
+    # @products = @products.order(:id)
+
     render "index.json.jbuilder"
   end
 
@@ -14,21 +22,26 @@ class Api::ProductsController < ApplicationController
     @product = Product.new(
       name: params["input_name"],
       price: params["input_price"],
-      image_url: params["input_url"],
-      description: params["input_description"]
+      description: params["input_description"],
+      supplier: params["input_supplier"]
       )
-    @product.save
-    render "show.json.jbuilder"
+    if  @product.save
+      render "show.json.jbuilder"
+    else 
+      render json: {errors: @product.errors.full_messages}, status: :inprocessable_entity
+    end
   end
 
   def update
     @product = Product.find_by(id: params[:id])
     @product.name =  params["input_name"] || @product.name
     @product.price =  params["input_price"] || @product.price
-    @product.image_url =  params["input_url"] || @product.image_url
     @product.description =  params["input_description"] || @description
-    @product.save
-    render "show.json.jbuilder"
+    if  @product.save
+      render "show.json.jbuilder"
+    else 
+      render json: {errors: @product.errors.full_messages}, status: :inprocessable_entity
+    end
   end
 
   def destroy
