@@ -1,13 +1,15 @@
 class Api::ProductsController < ApplicationController
+  before_action :authenticate_admin, except: [:index, :show]
+  
   def index
     @products = Product.all
 
-    # search_terms = params[:search]
-    # if search_terms
-    #   @products = @products.where("name ILIKE ?", "%#{search_terms}%")
-    # end
+    search_terms = params[:search]
+    if search_terms
+      @products = @products.where("name ILIKE ?", "%#{search_terms}%")
+    end
 
-    # @products = @products.order(:id)
+    @products = @products.order(:id)
 
     render "index.json.jbuilder"
   end
