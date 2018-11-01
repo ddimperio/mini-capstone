@@ -24,3 +24,8 @@ Image.create!(product_id: 4, image_url: 'https://upload.wikimedia.org/wikipedia/
 
 Category.create!(name: 'Online Capability')
 Category.create!(name: 'No Online Capability')
+
+CategoryProduct.create!(product_id: 1, category_id: 1)
+CategoryProduct.create!(product_id: 2, category_id: 1)
+CategoryProduct.create!(product_id: 3, category_id: 2)
+CategoryProduct.create!(product_id: 4, category_id: 1)

@@ -7,3 +7,4 @@ json.total product.total
 json.description product.description 
 json.is_discount product.is_discounted
 json.supplier product.supplier
+json.categories product.categories

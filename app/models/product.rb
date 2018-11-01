@@ -17,6 +17,9 @@ class Product < ApplicationRecord
     price + tax
   end
 
+  has_many :category_products
+  has_many :categories, through: :category_products
+
   belongs_to :supplier
   # def supplier
   #   Supplier.find_by(id: supplier_id)
@@ -36,5 +39,6 @@ class Product < ApplicationRecord
     images.map { |image| image.image_url }
   end
 
-  has_many :orders
+  has_many :category_products
+  has_many :orders, through: :category_products
 end
